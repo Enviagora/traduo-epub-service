@@ -25,18 +25,6 @@ async def convert_to_epub(
             input_path,
             output_path,
             "--title", book_title,
-            "--enable-heuristics",
-            "--unwrap-lines",
-            "--paragraph-type", "auto",
-            "--margin-top", "10",
-            "--margin-bottom", "10",
-            "--margin-left", "10",
-            "--margin-right", "10",
-            "--base-font-size", "12",
-            "--font-size-mapping", "10,11,12,14,16,18,20,22",
-            "--insert-blank-line",
-            "--insert-blank-line-size", "0.5",
-            "--image-resolution", "300",
         ]
 
         if cover and cover.filename:
