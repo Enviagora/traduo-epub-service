@@ -25,30 +25,18 @@ async def convert_to_epub(
             input_path,
             output_path,
             "--title", book_title,
-            # Detecção e estrutura
-            "--formatting-type", "auto",
-            "--detect-paragraph-structure",
-            # Limpeza de texto
             "--enable-heuristics",
             "--unwrap-lines",
-            "--fix-indents",
             "--paragraph-type", "auto",
-            # Margens e layout
             "--margin-top", "10",
             "--margin-bottom", "10",
             "--margin-left", "10",
             "--margin-right", "10",
-            # Fonte legível
             "--base-font-size", "12",
             "--font-size-mapping", "10,11,12,14,16,18,20,22",
-            # Preservação de imagens
             "--insert-blank-line",
             "--insert-blank-line-size", "0.5",
-            "--keep-ligatures",
             "--image-resolution", "300",
-            "--preserve-entity-map",
-            "--pdf-image-size", "1000",
-            "--pdf-add-margins",
         ]
 
         if cover and cover.filename:
