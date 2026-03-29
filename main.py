@@ -11,6 +11,7 @@ app = FastAPI(title="Traduo ePUB Converter")
 async def convert_to_epub(
     file: UploadFile = File(...),
     book_title: str = Form(default="livro"),
+    cover: UploadFile = File(default=None),
 ):
     with tempfile.TemporaryDirectory() as tmp_dir:
         input_path = os.path.join(tmp_dir, "input.pdf")
@@ -19,8 +20,21 @@ async def convert_to_epub(
         with open(input_path, "wb") as f:
             f.write(await file.read())
 
+        cmd = [
+            "ebook-convert",
+            input_path,
+            output_path,
+            "--title", book_title,
+        ]
+
+        if cover and cover.filename:
+            cover_path = os.path.join(tmp_dir, "cover.jpg")
+            with open(cover_path, "wb") as f:
+                f.write(await cover.read())
+            cmd += ["--cover", cover_path]
+
         result = subprocess.run(
-            ["ebook-convert", input_path, output_path, "--title", book_title],
+            cmd,
             capture_output=True,
             text=True,
             timeout=300,
